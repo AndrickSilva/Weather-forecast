@@ -27,33 +27,63 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen  items-center justify-between">
-      <div className="w-full min-h-screen bg-blue-600">
-        <Image
-        src={data?.current?.weather_icons[0]} alt='weather icon'
-        width={200}
-        height={200}
-        />
+      <div className={`w-full min-h-screen ${data?.current?.is_day == "no" ? `bg-blue-400` : `bg-yellow-100`} flex justify-center items-center flex-col relative`}>
+        <p className='text-sm text-slate-900'>Last updated : {data?.current?.observation_time ? data?.current?.observation_time : '12/02/23'}</p>
+        {data?.current?.is_day == "no" ?
+          <Image
+            src='/moon.svg' alt='weather icon'
+            width={100}
+            height={200}
+            className='w-full'
+          />
+          :
+          <Image
+            src='/sun.svg' alt='weather icon'
+            width={200}
+            height={200}
+            className='w-1/2'
+          />
+        }
+        <p className={`text-6xl font-bold ${data?.current?.is_day == "no" ? `text-blue-800` : `text-orange-400`} absolute bottom-32`}>{data?.current?.temperature ? data?.current?.temperature + "°C" : '24 °C'}</p>
+        <p className={`text-3xl  ${data?.current?.is_day == "no" ? `text-blue-100` : `text-orange-900`} absolute bottom-20`}>{data?.current?.weather_descriptions[0] ? data?.current?.weather_descriptions[0] : 'Mist'}</p>
       </div>
-      <div className="w-full min-h-screen bg-slate-300">
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={change} onChange={(e) => setChange(e.target.value)} placeholder='Enter Country name' />
-          <button type='submit'>Submit</button>
+      <div className="w-full min-h-screen bg-white flex justify-center items-center flex-col gap-10 bg-orange-50">
+        <form onSubmit={handleSubmit} className='relative w-1/2'>
+          <input type="text" value={change} onChange={(e) => setChange(e.target.value)} placeholder='Enter Country name' className='px-6 py-2 rounded-full border border-blue-900 w-full' />
+          <button type='submit' className='bg-blue-700 text-white px-6 h-full rounded-full absolute top-0 right-0'>Submit</button>
         </form>
-        <p className='text-xl text-slate-400'>Last Updated : {data?.current?.observation_time}</p>
-        <p className='text-2xl'>Temperature : {data?.current?.temperature}</p>
-        <p className='text-2xl'>Description : {data?.current?.weather_descriptions[0]}</p>
-        <p className='text-2xl'>Wind speed : {data?.current?.wind_speed}</p>
-        <p className='text-2xl'>wind_degree : {data?.current?.wind_degree}</p>
-        <p className='text-2xl'>wind_dir : {data?.current?.wind_dir}</p>
-        <p className='text-2xl'>pressure : {data?.current?.pressure}</p>
-        <p className='text-2xl'>precip : {data?.current?.precip}</p>
-        <p className='text-2xl'>humidity : {data?.current?.humidity}</p>
-        <p className='text-2xl'>cloudcover : {data?.current?.cloudcover}</p>
-        <p className='text-2xl'>feelslike : {data?.current?.feelslike}</p>
-        <p className='text-2xl'>uv_index : {data?.current?.uv_index}</p>
-        <p className='text-2xl'>visibility : {data?.current?.visibility}</p>
-        <p className='text-2xl'>is_day : {data?.current?.is_day}</p>
-
+        <div className="flex flex-col gap-2 w-full justify-center items-center">
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Wind speed</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_speed ? data?.current?.wind_speed : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Wind degree</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_degree ? data?.current?.wind_degree : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Wind direction</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_dir ? data?.current?.wind_dir : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Pressure</p> <span className='text-3xl text-orange-900'>{data?.current?.pressure ? data?.current?.pressure : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>precip</p> <span className='text-3xl text-orange-900'>{data?.current?.precip ? data?.current?.precip : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Humidity</p> <span className='text-3xl text-orange-900'>{data?.current?.humidity ? data?.current?.humidity : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Cloud cover</p> <span className='text-3xl text-orange-900'>{data?.current?.cloudcover ? data?.current?.cloudcover : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Feels like</p> <span className='text-3xl text-orange-900'>{data?.current?.feelslike ? data?.current?.feelslike : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>UV index</p> <span className='text-3xl text-orange-900'>{data?.current?.uv_index ? data?.current?.uv_index : '19'}</span>
+          </div>
+          <div className="flex items-center justify-between w-1/2 ">
+            <p className='text-2xl text-orange-400'>Visibility</p> <span className='text-3xl text-orange-900'>{data?.current?.visibility ? data?.current?.visibility : '19'}</span>
+          </div>
+        </div>
       </div>
 
     </main>
