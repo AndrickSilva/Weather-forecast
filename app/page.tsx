@@ -47,41 +47,51 @@ export default function Home() {
         <p className={`text-6xl font-bold ${data?.current?.is_day == "no" ? `text-blue-800` : `text-orange-400`} absolute bottom-32`}>{data?.current?.temperature ? data?.current?.temperature + "°C" : '24 °C'}</p>
         <p className={`text-3xl  ${data?.current?.is_day == "no" ? `text-blue-100` : `text-orange-900`} absolute bottom-20`}>{data?.current?.weather_descriptions[0] ? data?.current?.weather_descriptions[0] : 'Mist'}</p>
       </div>
-      <div className="w-full min-h-screen bg-white flex justify-center items-center flex-col gap-10 bg-orange-50">
+      <div className={`w-full min-h-screen flex justify-center items-center flex-col gap-10 ${data?.current?.is_day == "no" ? `bg-orange-50` : `bg-blue-100`}`}>
         <form onSubmit={handleSubmit} className='relative w-1/2'>
-          <input type="text" value={change} onChange={(e) => setChange(e.target.value)} placeholder='Enter Country name' className='px-6 py-2 rounded-full border border-blue-900 w-full' />
-          <button type='submit' className='bg-blue-700 text-white px-6 h-full rounded-full absolute top-0 right-0'>Submit</button>
+          <input type="text" value={change} onChange={(e) => setChange(e.target.value)} placeholder='Enter Country name' className={`px-6 py-2 rounded-full border ${data?.current?.is_day == "no" ? `border-blue-800` : `border-orange-400`} w-full`} />
+          <button type='submit' className={`${data?.current?.is_day == "no" ? `bg-blue-800` : `bg-yellow-400`} text-white px-6 h-full rounded-full absolute top-0 right-0`}>Submit</button>
         </form>
         <div className="flex flex-col gap-2 w-full justify-center items-center">
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Wind speed</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_speed ? data?.current?.wind_speed : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Wind speed</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.wind_speed ? data?.current?.wind_speed : '19'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Wind degree</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_degree ? data?.current?.wind_degree : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Wind degree</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.wind_degree ? data?.current?.wind_degree : '29'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Wind direction</p> <span className='text-3xl text-orange-900'>{data?.current?.wind_dir ? data?.current?.wind_dir : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Wind direction</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.wind_dir ? data?.current?.wind_dir : 'North'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Pressure</p> <span className='text-3xl text-orange-900'>{data?.current?.pressure ? data?.current?.pressure : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Pressure</p> <span
+              className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.pressure ? data?.current?.pressure : '10'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>precip</p> <span className='text-3xl text-orange-900'>{data?.current?.precip ? data?.current?.precip : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>precip</p> <span
+              className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.precip ? data?.current?.precip : '19'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Humidity</p> <span className='text-3xl text-orange-900'>{data?.current?.humidity ? data?.current?.humidity : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Humidity</p> <span
+              className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.humidity ? data?.current?.humidity : '18'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Cloud cover</p> <span className='text-3xl text-orange-900'>{data?.current?.cloudcover ? data?.current?.cloudcover : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Cloud cover</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.cloudcover ? data?.current?.cloudcover : '19'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Feels like</p> <span className='text-3xl text-orange-900'>{data?.current?.feelslike ? data?.current?.feelslike : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Feels like</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.feelslike ? data?.current?.feelslike : '12%'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>UV index</p> <span className='text-3xl text-orange-900'>{data?.current?.uv_index ? data?.current?.uv_index : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>UV index</p>
+            <span className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.uv_index ? data?.current?.uv_index : '14'}</span>
           </div>
           <div className="flex items-center justify-between w-1/2 ">
-            <p className='text-2xl text-orange-400'>Visibility</p> <span className='text-3xl text-orange-900'>{data?.current?.visibility ? data?.current?.visibility : '19'}</span>
+            <p className={`text-xl ${data?.current?.is_day == "no" ? `text-orange-400` : `text-blue-800`}`}>Visibility</p> <span
+              className={`text-2xl font-bold ${data?.current?.is_day == "no" ? `text-orange-900`: `text-blue-900`}`}>{data?.current?.visibility ? data?.current?.visibility : '4'}</span>
           </div>
         </div>
       </div>
