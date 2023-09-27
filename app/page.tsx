@@ -46,6 +46,7 @@ export default function Home() {
             alt="weather icon"
             width={100}
             height={200}
+            priority={true}
             className="w-full"
           />
         ) : (
@@ -54,6 +55,7 @@ export default function Home() {
             alt="weather icon"
             width={200}
             height={200}
+            priority={true}
             className="w-1/2"
           />
         )}
