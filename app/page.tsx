@@ -6,13 +6,15 @@ import { useState } from "react";
 export default function Home() {
   const [data, setData] = useState<any>({});
   const [change, setChange] = useState("India");
+  const [loader, setLoader] = useState(false);
 
   // const apiKey = process.env.REACT_APP_API_KEY;
   // console.log(apiKey);
 
   const handleSubmit = async (e: any) => {
+    setLoader(true);
     e.preventDefault();
-    const url = `http://api.weatherstack.com/current?access_key=ddb1498ce5ea181fa311dbbff43221c1&query=${change}`;
+    const url = `http://api.weatherstack.com/current?access_key=ca716edd1815efb54ef94cf1e634356b&query=${change}`;
 
     try {
       const fetchWeather = await fetch(url);
@@ -20,8 +22,10 @@ export default function Home() {
         throw new Error("Invalid Data");
       }
       setData(await fetchWeather.json());
+      setLoader(false);
     } catch (error) {
       console.log(error);
+      setLoader(false);
     }
   };
 
@@ -29,9 +33,7 @@ export default function Home() {
     <main className="flex min-h-screen  items-center justify-between">
       <div
         className={`w-full min-h-screen ${
-          data?.current?.current?.is_day == "no"
-            ? `bg-blue-400`
-            : `bg-yellow-100`
+          data?.current?.is_day == "no" ? `bg-blue-400` : `bg-yellow-200`
         } flex justify-center items-center flex-col relative`}
       >
         <p className="text-sm text-slate-900 absolute top-10">
@@ -40,14 +42,14 @@ export default function Home() {
             ? data?.current?.observation_time
             : "12/02/23"}
         </p>
-        {data?.current?.current?.is_day == "no" ? (
+        {data?.current?.is_day == "no" ? (
           <Image
             src="/moon.svg"
             alt="weather icon"
             width={100}
             height={200}
             priority={true}
-            className="w-full"
+            className="w-3/4"
           />
         ) : (
           <Image
@@ -61,9 +63,7 @@ export default function Home() {
         )}
         <p
           className={`text-6xl font-bold ${
-            data?.current?.current?.is_day == "no"
-              ? `text-blue-800`
-              : `text-orange-400`
+            data?.current?.is_day == "no" ? `text-blue-800` : `text-orange-400`
           } absolute bottom-32`}
         >
           {data?.current?.temperature
@@ -72,9 +72,7 @@ export default function Home() {
         </p>
         <p
           className={`text-3xl  ${
-            data?.current?.current?.is_day == "no"
-              ? `text-blue-100`
-              : `text-orange-900`
+            data?.current?.is_day == "no" ? `text-blue-100` : `text-orange-900`
           } absolute bottom-20`}
         >
           {data?.current?.weather_descriptions[0]
@@ -84,9 +82,7 @@ export default function Home() {
       </div>
       <div
         className={`w-full min-h-screen flex justify-center items-center flex-col gap-10 ${
-          data?.current?.current?.is_day == "no"
-            ? `bg-blue-100`
-            : `bg-orange-50`
+          data?.current?.is_day == "no" ? `bg-blue-100` : `bg-slate-50`
         }`}
       >
         <form onSubmit={handleSubmit} className="relative w-1/2">
@@ -96,27 +92,35 @@ export default function Home() {
             onChange={(e) => setChange(e.target.value)}
             placeholder="Enter Country name"
             className={`px-6 py-2 rounded-full border ${
-              data?.current?.current?.is_day == "no"
-                ? `border-blue-800`
-                : `border-orange-400`
+              data?.current?.is_day == "no"
+                ? `border-blue-800 focus:outline-none `
+                : `border-orange-400 focus:outline-none `
             } w-full`}
           />
           <button
             type="submit"
             className={`${
-              data?.current?.current?.is_day == "no"
-                ? `bg-blue-800`
-                : `bg-yellow-400`
-            } text-white px-6 h-full rounded-full absolute top-0 right-0`}
+              data?.current?.is_day == "no" ? `bg-blue-800` : `bg-yellow-400`
+            } text-white px-6 h-full rounded-full absolute top-0 right-0 flex justify-center items-center gap-2`}
           >
-            Submit
+            {!loader && (
+              <Image
+                src="/loader.svg"
+                alt="loader"
+                width={15}
+                height={15}
+                className="animate-spin"
+                priority={true}
+              />
+            )}
+            {!loader && <p>Submit</p>}
           </button>
         </form>
         <div className="flex flex-col gap-2 w-full justify-center items-center">
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -125,7 +129,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -136,7 +140,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -145,7 +149,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -156,7 +160,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -165,7 +169,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -176,7 +180,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -185,7 +189,7 @@ export default function Home() {
             </p>{" "}
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -196,7 +200,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -205,7 +209,7 @@ export default function Home() {
             </p>{" "}
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -216,7 +220,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -225,7 +229,7 @@ export default function Home() {
             </p>{" "}
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -236,7 +240,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -245,7 +249,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -256,7 +260,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -265,7 +269,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -276,7 +280,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -285,7 +289,7 @@ export default function Home() {
             </p>
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
@@ -296,7 +300,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-1/2 ">
             <p
               className={`text-xl ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-800`
                   : `text-orange-400`
               }`}
@@ -305,7 +309,7 @@ export default function Home() {
             </p>{" "}
             <span
               className={`text-2xl font-bold ${
-                data?.current?.current?.is_day == "no"
+                data?.current?.is_day == "no"
                   ? `text-blue-900`
                   : `text-orange-900`
               }`}
