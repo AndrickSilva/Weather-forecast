@@ -70,10 +70,11 @@ export default function Home() {
             ? data?.current?.temperature + "°C"
             : "24 °C"}
         </p>
+        <p className="absolute bottom-16 capitalize">{change}</p>
         <p
-          className={`text-3xl  ${
+          className={`text-xl  font-bold  ${
             data?.current?.is_day == "no" ? `text-blue-100` : `text-orange-900`
-          } absolute bottom-20`}
+          } absolute bottom-24`}
         >
           {data?.current?.weather_descriptions[0]
             ? data?.current?.weather_descriptions[0]
@@ -103,7 +104,7 @@ export default function Home() {
               data?.current?.is_day == "no" ? `bg-blue-800` : `bg-yellow-400`
             } text-white px-6 h-full rounded-full absolute top-0 right-0 flex justify-center items-center gap-2`}
           >
-            {!loader && (
+            {loader && (
               <Image
                 src="/loader.svg"
                 alt="loader"
