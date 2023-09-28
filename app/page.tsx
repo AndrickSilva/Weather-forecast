@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+
 // import 'dotenv/config'
 
 export default function Home() {
@@ -8,13 +9,10 @@ export default function Home() {
   const [change, setChange] = useState("India");
   const [loader, setLoader] = useState(false);
 
-  // const apiKey = process.env.REACT_APP_API_KEY;
-  // console.log(apiKey);
-
   const handleSubmit = async (e: any) => {
     setLoader(true);
     e.preventDefault();
-    const url = `http://api.weatherstack.com/current?access_key=ca716edd1815efb54ef94cf1e634356b&query=${change}`;
+    const url = `http://api.weatherstack.com/current?access_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${change}`;
 
     try {
       const fetchWeather = await fetch(url);
